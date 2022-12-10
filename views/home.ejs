@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <link rel="shortcut icon" type="image/x-icon" href="./img/favicon_ZBt_icon.ico"/>
+        <link rel="stylesheet" href="./css/style.css"/>
+        <link rel="stylesheet" href="./css/header_style.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+        <title>Cointab Software Pvt Ltd.</title>
+    </head>
+    <body>
+        <%- include('__header.ejs') %>
+        <div id="login_form_container">
+            <!-- Login Form -->
+            <h3>Login Form</h3>
+            <form method="post" action="/login" >
+                <input type="email" name="email" placeholder="Enter email ...">
+                <input type="password" name="password" placeholder="Enter password ...">
+                <input type="submit" value="Submit" id="btn_submit">
+            </form>        
+        </div>
+        <script src="./js/home_script.js"></script>
+        <script>
+            <% if(flash.success && flash.success.length>0) { %>
+                new Noty({
+                layout:'topRight',
+                theme:'sunset',
+                type:'success',
+                text: "<%= flash.success %>",  
+                timeout:1500       
+                }).show();
+            <% } %>
+            <% if(flash.error && flash.error.length>0) { %>
+                new Noty({
+                layout:'topRight',
+                theme:'sunset',
+                type:'error',
+                text: "<%= flash.error %>",  
+                timeout:1500       
+                }).show();
+            <% } %>
+        </script>
+    </body>
+</html>

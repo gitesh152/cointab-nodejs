@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <link rel="shortcut icon" type="image/x-icon" href="./img/favicon_ZBt_icon.ico"/>
+        <link rel="stylesheet" href="./css/style.css"/>
+        <link rel="stylesheet" href="./css/header_style.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+        <title>Cointab Software Pvt Ltd.</title>
+    </head>
+    <body>
+        <%- include('__header.ejs') %>
+        <div id="user_header"><h1>User Management <a href="/logout">Log Out</a></h1>
+            <!-- User form -->
+            <form method="post" action="/add_user">
+                <input type="hidden" name="userid" id="inputId">
+                <input type="text" name="name" placeholder="Enter name ..." id="inputName" required>
+                <input type="email" name="email" placeholder="Enter email ..." id="inputEmail" required>
+                <input type="text" name="password" placeholder="Enter password..." id="inputPassword" required>
+                <input type="text" name="confirm_password" placeholder="confirm password ..." id="inputConfirmPassword" required>
+                <input type="submit" value="ADD" id="btn_submit">
+            </form>
+        </div>
+        <!-- List of all users -->
+        <div id="users_container">
+            <h2>Users List</h2>
+            <ul id="users-list" style="list-style-type: none;">
+                <% for (user of users) { %>
+                    <li>
+                    <p>
+                    <%= user.name %> | <%= user.email %> 
+                    | <input type="button" onclick="viewUser('<%= user.name %>','<%= user.email %>');" value="View" class="view_button">
+                    | <input type="button" onclick="editUser('<%= user.id %>','<%= user.name %>','<%= user.email %>','<%= user.password %>');" value="Edit" class="edit_button"> 
+                    | <a href="/delete_user/?id=<%= user.id %>" class="delete_button">Delete</a>
+                    </p>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+        <script src="./js/users_script.js"></script>
+        <script>
+            <% if(flash.success && flash.success.length>0) { %>
+                new Noty({
+                layout:'topRight',
+                theme:'sunset',
+                type:'success',
+                text: "<%= flash.success %>",  
+                timeout:1500       
+                }).show();
+            <% } %>
+            <% if(flash.error && flash.error.length>0) { %>
+                new Noty({
+                layout:'topRight',
+                theme:'sunset',
+                type:'error',
+                text: "<%= flash.error %>",  
+                timeout:1500       
+                }).show();
+            <% } %>
+        </script>
+    </body>
+</html>
